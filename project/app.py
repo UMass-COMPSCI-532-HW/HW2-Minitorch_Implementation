@@ -1,3 +1,14 @@
+import sys
+
+# Patch imghdr for Python 3.13+
+try:
+    import imghdr
+except ImportError:
+    import types
+    imghdr_module = types.ModuleType("imghdr")
+    imghdr_module.what = lambda file, h=None: None
+    sys.modules["imghdr"] = imghdr_module
+
 from argparse import ArgumentParser
 
 import streamlit as st
